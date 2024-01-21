@@ -1,4 +1,4 @@
-# dsf2dsdiff
+# dsdextractor
 
 Simple and portable command-line program for extracting raw DSD from files. DSF and DFF are two file formats for containing [Direct Stream Digital](https://en.wikipedia.org/wiki/Direct_Stream_Digital) audio data. Most players and converters support both, but some only one.
 

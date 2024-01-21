@@ -1,7 +1,7 @@
 objects = dsf2dsdiff.o endianness.o dsf.o dsdiff.o
 
 dsf2dsdiff : $(objects)
-	cc -o dsf2dsdiff $(objects)
+	cc -o dsdextractor $(objects)
 
 dsf2dsdiff.o : dsf.h dsdiff.h dsf2dsdiff.h
 endianness.o :

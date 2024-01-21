@@ -148,32 +148,32 @@ void convert_DSD_data(FILE **infile, dsfinfo dsf)
 
 	uint8_t buffer[dsf.channels * dsf.blockSize];
 	uint8_t blocks[dsf.channels][dsf.blockSize];
-	uint64_t b = dsf.samples / 8;
-	uint64_t l;
+	uint64_t bytesNum = dsf.samples / 8;
+	uint64_t blockSize;
 
-	while (b > 0)
+	while (bytesNum > 0)
 	{
-		if (b > dsf.blockSize)
+		if (bytesNum > dsf.blockSize)
 		{
-			l = dsf.blockSize;
-			b -= l;
+			blockSize = dsf.blockSize;
+			bytesNum -= blockSize;
 		}
 		else
 		{
-			l = b;
-			b = 0;
+			blockSize = bytesNum;
+			bytesNum = 0;
 		}
 		for (int i = 0; i < dsf.channels; i++)
 		{
-			fread(blocks[i], l, 1, *infile);
+			fread(blocks[i], blockSize, 1, *infile);
 		}
-		for (int i = 0; i < l * dsf.channels; i += dsf.channels)
+		for (int i = 0; i < blockSize * dsf.channels; i += dsf.channels)
 		{
 			for (int j = 0; j < dsf.channels; j++)
 			{
 				buffer[i + j] = bitReverse[blocks[j][i / dsf.channels]];
 			}
 		}
-		fwrite(buffer, 1, l * dsf.channels, stdout);
+		fwrite(buffer, 1, blockSize * dsf.channels, stdout);
 	}
 }
